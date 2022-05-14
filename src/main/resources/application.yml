@@ -1,0 +1,42 @@
+# Service Port
+server:
+    port: 8089
+
+spring:
+  # VIEW
+  mvc:
+      view:
+          #prefix: /WEB-INF/views/
+          suffix: .html
+
+  # DB
+  datasource:
+      driver-calass-name: oracle.jdbc.OracleDriver
+      url: jdbc:oracle:thin:@54.180.8.49:1521:XE
+      username: freecommu
+      password: 1234
+
+    #HikariCP 데이터 소스(DataSource)
+    #hikari:
+    #  driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    #  jdbc-url: jdbc:log4jdbc:oracle:thin:@54.180.8.49:1521:XE
+    #  username: freecommu
+    #  password: 1234
+    #  connection-test-query: SELECT NOW() FROM dual
+
+  # JPA
+  jpa:
+      hibernate:
+          ddl-auto: update
+      show-sql: true
+      database: oracle
+      database-platform: org.hibernate.dialect.OracleDialect
+      generate-ddl: true
+
+# Logging Setting
+logging:
+  level:
+      org:
+        hibernate: info
+
+
