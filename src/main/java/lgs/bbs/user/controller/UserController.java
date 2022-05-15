@@ -32,9 +32,25 @@ public class UserController {
         return userRepository.findAll(spec);
     }
 
-    @GetMapping("/{userId}")
-    public List<User> search(@PathVariable Long userId){
-        return userRepository.findAllById(Collections.singleton(userId));
+    @GetMapping("/userChk")
+    public long userChk(@RequestBody User user){
+        String id = user.getId();
+        String password = "";
+        long result = 0;
+
+        if(user.getPassword() != null){ /* 로그인 */
+            password = user.getPassword();
+            result = userRepository.loginProcessing(id, password);
+        } else { /* 아이디 중복체크 */
+            result = userRepository.userOverlapChk(id);
+        }
+
+        return result;
+    }
+
+    @GetMapping("/{idx}")
+    public List<User> search(@PathVariable Long idx){
+        return userRepository.findAllById(Collections.singleton(idx));
     }
 
     @PostMapping
