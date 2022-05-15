@@ -1,14 +1,16 @@
 package lgs.bbs.user.controller;
 
+import lgs.bbs.comm.HttpHeaderJsonType;
+import lgs.bbs.comm.HttpMessage;
 import lgs.bbs.user.entity.User;
 import lgs.bbs.user.entity.UserRepository;
 import lgs.bbs.user.entity.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -17,8 +19,11 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    private final String CLASS_TYPE = "user";
+
     @GetMapping
-    public List<User> searchList(@RequestBody User user){
+    public ResponseEntity searchList(@RequestBody User user){
+        HttpMessage message = new HttpMessage();
         Specification<User> spec = (root, query, criteriaBuilder) -> null;
 
         /* 조건 조회 */
@@ -29,28 +34,44 @@ public class UserController {
             spec = spec.and(UserSpecification.likeName(user.getName()));
         }
 
-        return userRepository.findAll(spec);
+        message.getMessage().put(CLASS_TYPE + "_count", userRepository.count(spec));
+        message.getMessage().put(CLASS_TYPE + "_list", userRepository.findAll(spec));
+
+        return ResponseEntity.ok()
+                .headers(HttpHeaderJsonType.getHeader())
+                .body(message.getMessage());
     }
 
     @GetMapping("/userChk")
-    public long userChk(@RequestBody User user){
+    public ResponseEntity userChk(@RequestBody User user){
+        HttpMessage message = new HttpMessage();
+
         String id = user.getId();
         String password = "";
-        long result = 0;
 
         if(user.getPassword() != null){ /* 로그인 */
             password = user.getPassword();
-            result = userRepository.loginProcessing(id, password);
+            message.getMessage().put(CLASS_TYPE + "_loginProcess",
+                                        userRepository.loginProcessing(id, password));
         } else { /* 아이디 중복체크 */
-            result = userRepository.userOverlapChk(id);
+            message.getMessage().put(CLASS_TYPE + "_OverlapChk",
+                                        userRepository.userOverlapChk(id));
         }
 
-        return result;
+        return ResponseEntity.ok()
+                .headers(HttpHeaderJsonType.getHeader())
+                .body(message.getMessage());
     }
 
     @GetMapping("/{idx}")
-    public List<User> search(@PathVariable Long idx){
-        return userRepository.findAllById(Collections.singleton(idx));
+    public ResponseEntity search(@PathVariable Long idx){
+        HttpMessage message = new HttpMessage();
+
+        message.getMessage().put(CLASS_TYPE, userRepository.findAllById(Collections.singleton(idx)));
+
+        return ResponseEntity.ok()
+                .headers(HttpHeaderJsonType.getHeader())
+                .body(message.getMessage());
     }
 
     @PostMapping
