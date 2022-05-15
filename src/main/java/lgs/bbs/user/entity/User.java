@@ -11,11 +11,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User{
+/*
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idx;*/
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idx;
-
     private String id;
     private String password;
 

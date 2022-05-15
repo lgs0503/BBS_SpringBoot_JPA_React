@@ -2,7 +2,9 @@ package lgs.bbs.user.controller;
 
 import lgs.bbs.user.entity.User;
 import lgs.bbs.user.entity.UserRepository;
+import lgs.bbs.user.entity.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -16,12 +18,22 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping
-    public List<User> searchList(){
-        return userRepository.findAll();
+    public List<User> searchList(@RequestBody User user){
+        Specification<User> spec = (root, query, criteriaBuilder) -> null;
+
+        /* 조건 조회 */
+        if(user.getId() != null) {
+            spec = spec.and(UserSpecification.equalId(user.getId()));
+        }
+        if(user.getName() != null) {
+            spec = spec.and(UserSpecification.likeName(user.getName()));
+        }
+
+        return userRepository.findAll(spec);
     }
 
     @GetMapping("/{userId}")
-    public List<User> searchList(@PathVariable Long userId){
+    public List<User> search(@PathVariable Long userId){
         return userRepository.findAllById(Collections.singleton(userId));
     }
 
