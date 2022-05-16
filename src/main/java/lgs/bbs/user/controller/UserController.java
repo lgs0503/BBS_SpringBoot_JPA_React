@@ -8,6 +8,7 @@ import lgs.bbs.user.entity.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -34,8 +35,8 @@ public class UserController {
             spec = spec.and(UserSpecification.likeName(user.getName()));
         }
 
-        message.getMessage().put(CLASS_TYPE + "_count", userRepository.count(spec));
-        message.getMessage().put(CLASS_TYPE + "_list", userRepository.findAll(spec));
+        message.getMessage().put(CLASS_TYPE + "Count", userRepository.count(spec));
+        message.getMessage().put(CLASS_TYPE + "List", userRepository.findAll(spec));
 
         return ResponseEntity.ok()
                 .headers(HttpHeaderJsonType.getHeader())
@@ -49,14 +50,16 @@ public class UserController {
         String id = user.getId();
         String password = "";
 
+        Specification<User> spec = (root, query, criteriaBuilder) -> null;
+
+        spec = spec.and(UserSpecification.equalId(id));
+
         if(user.getPassword() != null){ /* 로그인 */
             password = user.getPassword();
-            message.getMessage().put(CLASS_TYPE + "_loginProcess",
-                                        userRepository.loginProcessing(id, password));
-        } else { /* 아이디 중복체크 */
-            message.getMessage().put(CLASS_TYPE + "_OverlapChk",
-                                        userRepository.userOverlapChk(id));
+            spec = spec.and(UserSpecification.equalPassword(password));
         }
+
+        message.getMessage().put(CLASS_TYPE + "Result", userRepository.count(spec));
 
         return ResponseEntity.ok()
                 .headers(HttpHeaderJsonType.getHeader())

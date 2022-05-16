@@ -8,16 +8,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-    @Query( value =     "SELECT COUNT(*) " +
-            "FROM   USER_INFO " +
-            "WHERE  ID          = :id " +
-            "AND    PASSWORD    = :password",
-            nativeQuery = true)
-    long loginProcessing(String id, String password);
-
-    @Query( value =     "SELECT COUNT(*) " +
-            "FROM   USER_INFO " +
-            "WHERE  ID          = :id ",
-            nativeQuery = true)
-    long userOverlapChk(String id);
+//    @Query( value =
+//            "SELECT COUNT(*) " +
+//            "FROM   USER_INFO " +
+//            "WHERE  ID          = :id " +
+//            "AND    PASSWORD    = :password",
+//            nativeQuery = true)
+//    long loginProcessing(String id, String password);
+//
+//    @Query( value =
+//            "SELECT COUNT(*) " +
+//            "FROM   USER_INFO " +
+//            "WHERE  ID          = :id ",
+//            nativeQuery = true)
+//    long userOverlapChk(String id);
 }

@@ -19,6 +19,15 @@ public class UserSpecification {
         };
     }
 
+    public static Specification<User> equalPassword(String password) {
+        return new Specification<User>() {
+            @Override
+            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.get("password"), password);
+            }
+        };
+    }
+
     public static Specification<User> likeName(String name) {
         return new Specification<User>() {
             @Override
