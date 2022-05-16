@@ -2,12 +2,14 @@ package lgs.bbs.user.controller;
 
 import lgs.bbs.comm.HttpHeaderJsonType;
 import lgs.bbs.comm.HttpMessage;
+import lgs.bbs.comm.UserSha256;
 import lgs.bbs.user.entity.User;
 import lgs.bbs.user.entity.UserRepository;
 import lgs.bbs.user.entity.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +25,7 @@ public class UserController {
     private final String CLASS_TYPE = "user";
 
     @GetMapping
-    public ResponseEntity searchList(@RequestBody User user){
+    public ResponseEntity searchList(User user){
         HttpMessage message = new HttpMessage();
         Specification<User> spec = (root, query, criteriaBuilder) -> null;
 
@@ -44,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/userChk")
-    public ResponseEntity userChk(@RequestBody User user){
+    public ResponseEntity userChk(User user){
         HttpMessage message = new HttpMessage();
 
         String id = user.getId();
@@ -55,7 +57,7 @@ public class UserController {
         spec = spec.and(UserSpecification.equalId(id));
 
         if(user.getPassword() != null){ /* 로그인 */
-            password = user.getPassword();
+            password = UserSha256.encrypt(user.getPassword());
             spec = spec.and(UserSpecification.equalPassword(password));
         }
 
@@ -78,12 +80,27 @@ public class UserController {
     }
 
     @PostMapping
-    public void save(@RequestBody User user){
+    public void save(User user){
+
+        user = User.builder()
+                .id(user.getId())
+                .password(user.getPassword() != null ? UserSha256.encrypt(user.getPassword()) : "")
+                .name(user.getName())
+                .birthday(user.getBirthday())
+                .email(user.getEmail())
+                .gender(user.getGender())
+                .phoneNum(user.getPhoneNum())
+                .address(user.getAddress())
+                .addressDtl(user.getAddressDtl())
+                .rule(user.getRule())
+                .deleteYn(user.getDeleteYn())
+                .build();
+
         userRepository.save(user);
     }
 
     @DeleteMapping
-    public void delete(@RequestBody User user){
+    public void delete(User user){
         userRepository.delete(user);
     }
 }
