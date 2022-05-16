@@ -37,8 +37,8 @@ public class UserController {
             spec = spec.and(UserSpecification.likeName(user.getName()));
         }
 
-        message.getMessage().put(CLASS_TYPE + "Count", userRepository.count(spec));
-        message.getMessage().put(CLASS_TYPE + "List", userRepository.findAll(spec));
+        message.put(CLASS_TYPE + "Count", userRepository.count(spec));
+        message.put(CLASS_TYPE + "List", userRepository.findAll(spec));
 
         return ResponseEntity.ok()
                 .headers(HttpHeaderJsonType.getHeader())
@@ -61,7 +61,7 @@ public class UserController {
             spec = spec.and(UserSpecification.equalPassword(password));
         }
 
-        message.getMessage().put(CLASS_TYPE + "Result", userRepository.count(spec));
+        message.put(CLASS_TYPE + "Result", userRepository.count(spec));
 
         return ResponseEntity.ok()
                 .headers(HttpHeaderJsonType.getHeader())
@@ -72,7 +72,7 @@ public class UserController {
     public ResponseEntity search(@PathVariable Long idx){
         HttpMessage message = new HttpMessage();
 
-        message.getMessage().put(CLASS_TYPE, userRepository.findAllById(Collections.singleton(idx)));
+        message.put(CLASS_TYPE, userRepository.findAllById(Collections.singleton(idx)));
 
         return ResponseEntity.ok()
                 .headers(HttpHeaderJsonType.getHeader())

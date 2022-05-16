@@ -19,4 +19,8 @@ public class HttpMessage {
         message = new HashMap<String, Object>();
         message.put("HttpStatus", HttpStatus);
     }
+
+    public void put(String name, Object obj){
+        message.put(name, obj);
+    }
 }
