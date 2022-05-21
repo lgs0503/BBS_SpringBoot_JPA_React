@@ -35,6 +35,8 @@ public class User{
     private LocalDateTime createdDate = LocalDateTime.now();
     private LocalDateTime updateDate = LocalDateTime.now();
 
+    private long imageFileNo;
+
     @Builder
     public User(String id,
                   String password,
@@ -46,7 +48,8 @@ public class User{
                   String address,
                   String addressDtl,
                   int rule,
-                  String deleteYn) {
+                  String deleteYn,
+                  long imageFileNo) {
         this.id = id;
         this.password = password;
         this.name = name;
@@ -58,5 +61,6 @@ public class User{
         this.addressDtl = addressDtl;
         this.rule = rule;
         this.deleteYn = deleteYn;
+        this.imageFileNo = imageFileNo;
     }
 }

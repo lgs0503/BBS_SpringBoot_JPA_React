@@ -25,7 +25,7 @@ public class UserController {
     private final String CLASS_TYPE = "user";
 
     @GetMapping
-    public ResponseEntity searchList(@RequestBody User user){
+    public ResponseEntity searchList(User user){
         HttpMessage message = new HttpMessage();
         Specification<User> spec = (root, query, criteriaBuilder) -> null;
 
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/userChk")
-    public ResponseEntity userChk(@RequestBody User user){
+    public ResponseEntity userChk(User user){
         HttpMessage message = new HttpMessage();
 
         String id = user.getId();
@@ -69,7 +69,7 @@ public class UserController {
     }
 
     @GetMapping("/{idx}")
-    public ResponseEntity search(@PathVariable Long idx){
+    public ResponseEntity search(Long idx){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE, userRepository.findAllById(Collections.singleton(idx)));
@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void save(@RequestBody User user){
+    public void save(User user){
 
         user = User.builder()
                 .id(user.getId())
@@ -94,13 +94,14 @@ public class UserController {
                 .addressDtl(user.getAddressDtl())
                 .rule(user.getRule())
                 .deleteYn(user.getDeleteYn())
+                .imageFileNo(user.getImageFileNo())
                 .build();
 
         userRepository.save(user);
     }
 
     @DeleteMapping
-    public void delete(@RequestBody User user){
+    public void delete(User user){
         userRepository.delete(user);
     }
 }
