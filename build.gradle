@@ -2,7 +2,6 @@ plugins {
 	id 'org.springframework.boot' version '2.6.7'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	id 'war'
 }
 
 group = 'lgs.bbs'
@@ -38,7 +37,10 @@ bootWar.enabled = false
 war.enabled = true
 
 bootWar{
-	archiveName("ui.war")
+	archiveName("bbs.war")
+}
+jar {
+	enabled = false
 }
 tasks.named('test') {
 	useJUnitPlatform()
