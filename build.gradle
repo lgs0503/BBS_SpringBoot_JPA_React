@@ -34,7 +34,7 @@ dependencies {
 }
 
 bootWar.enabled = false
-war.enabled = true
+war.enabled = false
 
 bootWar{
 	archiveName("bbs.war")
