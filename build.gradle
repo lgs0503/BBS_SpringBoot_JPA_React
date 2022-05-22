@@ -7,7 +7,6 @@ plugins {
 
 group = 'lgs.bbs'
 version = '0.0.1-SNAPSHOT'
-apply plugin: 'war'
 sourceCompatibility = '11'
 
 configurations {
@@ -18,6 +17,11 @@ configurations {
 
 repositories {
 	mavenCentral()
+}
+
+bootWar {
+	archiveBaseName = 'bbs'
+	archiveVersion="0.0.1-SNAPSHOT"
 }
 
 dependencies {
@@ -31,18 +35,11 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	// war file create
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
-bootWar.enabled = false
-war.enabled = true
-
-bootWar{
-	archiveName("bbs.war")
-}
-jar {
-	enabled = true
-}
 tasks.named('test') {
 	useJUnitPlatform()
 }
