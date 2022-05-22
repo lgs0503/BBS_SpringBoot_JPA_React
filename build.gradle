@@ -31,8 +31,15 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
+bootWar.enabled = false
+war.enabled = true
+
+bootWar{
+	archiveName("ui.war")
+}
 tasks.named('test') {
 	useJUnitPlatform()
 }
