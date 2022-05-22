@@ -35,13 +35,13 @@ dependencies {
 }
 
 bootWar.enabled = false
-war.enabled = false
+war.enabled = true
 
 bootWar{
 	archiveName("bbs.war")
 }
 jar {
-	enabled = false
+	enabled = true
 }
 tasks.named('test') {
 	useJUnitPlatform()
