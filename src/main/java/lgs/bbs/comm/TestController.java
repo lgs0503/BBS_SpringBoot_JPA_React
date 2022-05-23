@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/test")
 public class TestController {
 
-    @GetMapping(value ="/linuxCommander/{commande}")
-    public String linuxCommander(){
-        return LinuxCommander.exec("pwd");
+    @GetMapping(value ="/linuxCommander/{command}")
+    public String linuxCommander(@PathVariable String command){
+        return LinuxCommander.exec(command);
     }
 
 }
