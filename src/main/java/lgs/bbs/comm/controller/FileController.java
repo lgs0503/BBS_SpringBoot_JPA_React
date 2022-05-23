@@ -98,21 +98,21 @@ public class FileController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
             //브라우저별 한글파일 명 처리
-            String onlyFileName = originFileName.substring(originFileName.lastIndexOf("_") + 1);
+            //String onlyFileName = originFileName.substring(originFileName.lastIndexOf("_") + 1);
 
             String agent = request.getHeader("User-Agent");
 
             if(agent.contains("Trident"))//Internet Explore
-                onlyFileName = URLEncoder.encode(onlyFileName, "UTF-8").replaceAll("\\+", " ");
+                originFileName = URLEncoder.encode(originFileName, "UTF-8").replaceAll("\\+", " ");
 
             else if(agent.contains("Edge")) //Micro Edge
-                onlyFileName = URLEncoder.encode(onlyFileName, "UTF-8");
+                originFileName = URLEncoder.encode(originFileName, "UTF-8");
 
             else //Chrome
-                onlyFileName = new String(onlyFileName.getBytes("UTF-8"), "ISO-8859-1");
+                originFileName = new String(originFileName.getBytes("UTF-8"), "ISO-8859-1");
 
             HttpHeaders header = new HttpHeaders();
-            header.add("Content-Disposition", "attachment; filename=" + onlyFileName);
+            header.add("Content-Disposition", "attachment; filename=" + originFileName);
 
             result = new ResponseEntity<>(file, header, HttpStatus.OK);
         } catch (IOException e) {
