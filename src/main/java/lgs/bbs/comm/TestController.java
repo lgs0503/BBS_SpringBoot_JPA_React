@@ -3,12 +3,13 @@ package lgs.bbs.comm;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping(value = "/test")
 public class TestController {
 
-    @RequestMapping("/")
-    public String TestView(){
-        return "index";
+    @GetMapping(value ="/linuxCommander/{commande}")
+    public String linuxCommander(){
+        return LinuxCommander.exec("pwd");
     }
 
 }
