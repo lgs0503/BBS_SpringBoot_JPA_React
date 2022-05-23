@@ -12,4 +12,8 @@ public class TestController {
         return LinuxCommander.exec(command);
     }
 
+    @GetMapping(value ="/")
+    public String test(){
+        return "test";
+    }
 }

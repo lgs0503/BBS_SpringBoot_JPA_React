@@ -69,7 +69,7 @@ public class UserController {
     }
 
     @GetMapping("/{idx}")
-    public ResponseEntity search(Long idx){
+    public ResponseEntity search(@PathVariable Long idx){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE, userRepository.findAllById(Collections.singleton(idx)));
