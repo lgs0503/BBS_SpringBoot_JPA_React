@@ -27,18 +27,9 @@ public class UserController {
     @GetMapping
     public ResponseEntity searchList(User user){
         HttpMessage message = new HttpMessage();
-        Specification<User> spec = (root, query, criteriaBuilder) -> null;
 
-        /* 조건 조회 */
-        if(user.getId() != null) {
-            spec = spec.and(UserSpecification.equalId(user.getId()));
-        }
-        if(user.getName() != null) {
-            spec = spec.and(UserSpecification.likeName(user.getName()));
-        }
-
-        message.put(CLASS_TYPE + "Count", userRepository.count(spec));
-        message.put(CLASS_TYPE + "List", userRepository.findAll(spec));
+        message.put(CLASS_TYPE + "Count", userRepository.searchListCount(user));
+        message.put(CLASS_TYPE + "List", userRepository.searchList(user));
 
         return ResponseEntity.ok()
                 .headers(HttpHeaderJsonType.getHeader())
@@ -49,19 +40,7 @@ public class UserController {
     public ResponseEntity userChk(User user){
         HttpMessage message = new HttpMessage();
 
-        String id = user.getId();
-        String password = "";
-
-        Specification<User> spec = (root, query, criteriaBuilder) -> null;
-
-        spec = spec.and(UserSpecification.equalId(id));
-
-        if(user.getPassword() != null){ /* 로그인 */
-            password = UserSha256.encrypt(user.getPassword());
-            spec = spec.and(UserSpecification.equalPassword(password));
-        }
-
-        message.put(CLASS_TYPE + "Result", userRepository.count(spec));
+        message.put(CLASS_TYPE + "Result", userRepository.searchListCount(user));
 
         return ResponseEntity.ok()
                 .headers(HttpHeaderJsonType.getHeader())
