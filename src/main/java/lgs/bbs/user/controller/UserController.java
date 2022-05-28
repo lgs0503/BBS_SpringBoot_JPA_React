@@ -25,7 +25,7 @@ public class UserController {
     private final String CLASS_TYPE = "user";
 
     @GetMapping
-    public ResponseEntity searchList(User user){
+    public ResponseEntity searchList(@RequestBody User user){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Count", userRepository.searchListCount(user));
@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/userChk")
-    public ResponseEntity userChk(User user){
+    public ResponseEntity userChk(@RequestBody User user){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Result", userRepository.searchListCount(user));
@@ -59,7 +59,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void save(User user){
+    public void save(@RequestBody User user){
 
         user = User.builder()
                 .id(user.getId())
@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public void delete(User user){
+    public void delete(@RequestBody User user){
         userRepository.delete(user);
     }
 }

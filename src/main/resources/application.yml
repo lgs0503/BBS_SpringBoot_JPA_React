@@ -43,9 +43,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        show_sql: true
+        use_sql_comments: true
 
 # Logging Setting
 logging:
   level:
-      org:
-        hibernate: info
+    org:
+        hibernate: debug
+    root: info
+

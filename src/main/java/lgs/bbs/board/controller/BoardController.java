@@ -20,7 +20,7 @@ public class BoardController {
     private final String CLASS_TYPE = "board";
 
     @GetMapping
-    public ResponseEntity searchList(Board board){
+    public ResponseEntity searchList(@RequestBody Board board){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Count", boardRepository.searchListCount(board));
@@ -43,7 +43,7 @@ public class BoardController {
     }
 
     @PostMapping
-    public void save(Board board){
+    public void save(@RequestBody Board board){
 
         board = Board.builder()
                 .boardName(board.getBoardName())
@@ -55,7 +55,7 @@ public class BoardController {
     }
 
     @DeleteMapping
-    public void delete(Board board){
+    public void delete(@RequestBody Board board){
         boardRepository.delete(board);
     }
 }

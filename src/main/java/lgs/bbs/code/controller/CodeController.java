@@ -22,7 +22,7 @@ public class CodeController {
     private final String CLASS_TYPE = "code";
 
     @GetMapping
-    public ResponseEntity searchList(Code code){
+    public ResponseEntity searchList(@RequestBody Code code){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Count", codeRepository.searchListCount(code));
@@ -45,7 +45,7 @@ public class CodeController {
     }
 
     @PostMapping
-    public void save(Code code){
+    public void save(@RequestBody Code code){
 
         code = Code.builder()
                 .codeId(code.getCodeId())
@@ -62,7 +62,7 @@ public class CodeController {
     }
 
     @DeleteMapping
-    public void delete(Code code){
+    public void delete(@RequestBody Code code){
         codeRepository.delete(code);
     }
 }
