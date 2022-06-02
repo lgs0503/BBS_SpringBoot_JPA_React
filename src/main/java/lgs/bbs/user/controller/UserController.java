@@ -25,7 +25,7 @@ public class UserController {
     private final String CLASS_TYPE = "user";
 
     @GetMapping
-    public ResponseEntity searchList(@RequestBody User user){
+    public ResponseEntity searchList(User user){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Count", userRepository.searchListCount(user));
