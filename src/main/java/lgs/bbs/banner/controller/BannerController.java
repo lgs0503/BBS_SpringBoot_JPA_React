@@ -20,7 +20,7 @@ public class BannerController {
     private final String CLASS_TYPE = "Banner";
 
     @GetMapping
-    public ResponseEntity searchList(@RequestBody Banner banner){
+    public ResponseEntity searchList(Banner banner){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Count", bannerRepository.searchListCount(banner));

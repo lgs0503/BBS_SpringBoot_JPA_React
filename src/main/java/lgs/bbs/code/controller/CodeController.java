@@ -22,7 +22,7 @@ public class CodeController {
     private final String CLASS_TYPE = "code";
 
     @GetMapping
-    public ResponseEntity searchList(@RequestBody Code code){
+    public ResponseEntity searchList(Code code){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Count", codeRepository.searchListCount(code));

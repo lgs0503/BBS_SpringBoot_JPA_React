@@ -21,7 +21,7 @@ public class PostController {
     private final String CLASS_TYPE = "post";
 
     @GetMapping
-    public ResponseEntity searchList(@RequestBody Post post){
+    public ResponseEntity searchList(Post post){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Count", postRepository.searchListCount(post));

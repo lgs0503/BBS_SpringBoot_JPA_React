@@ -20,7 +20,7 @@ public class MenuController {
     private final String CLASS_TYPE = "menu";
 
     @GetMapping
-    public ResponseEntity searchList(@RequestBody Menu menu){
+    public ResponseEntity searchList(Menu menu){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Count", menuRepository.searchListCount(menu));

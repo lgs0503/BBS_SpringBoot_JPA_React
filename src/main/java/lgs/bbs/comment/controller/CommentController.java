@@ -20,7 +20,7 @@ public class CommentController {
     private final String CLASS_TYPE = "Comment";
 
     @GetMapping
-    public ResponseEntity searchList(@RequestBody Comment comment){
+    public ResponseEntity searchList(Comment comment){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Count", commentRepository.searchListCount(comment));

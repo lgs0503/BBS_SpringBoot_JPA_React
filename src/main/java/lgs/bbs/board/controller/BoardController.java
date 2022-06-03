@@ -20,7 +20,7 @@ public class BoardController {
     private final String CLASS_TYPE = "board";
 
     @GetMapping
-    public ResponseEntity searchList(@RequestBody Board board){
+    public ResponseEntity searchList(Board board){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Count", boardRepository.searchListCount(board));
