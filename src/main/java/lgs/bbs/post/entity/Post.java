@@ -1,9 +1,6 @@
 package lgs.bbs.post.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Blob;
@@ -11,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity(name = "Post")
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,15 +1,13 @@
 package lgs.bbs.popup.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Blob;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @Entity(name = "Popup")
 @NoArgsConstructor
 @AllArgsConstructor
