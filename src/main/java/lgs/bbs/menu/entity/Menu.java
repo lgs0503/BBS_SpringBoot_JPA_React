@@ -33,6 +33,8 @@ public class Menu {
     private String useYn;
     private String deleteYn;
 
+    private String rule;
+
     private LocalDateTime createdDate = LocalDateTime.now();
     private LocalDateTime updateDate = LocalDateTime.now();
 
@@ -45,7 +47,8 @@ public class Menu {
                 String contentId,
                 String menuViewPath,
                 String useYn,
-                String deleteYn) {
+                String deleteYn,
+                String rule) {
         this.upperMenuId = upperMenuId;
         this.menuName = menuName;
         this.menuType = menuType;
@@ -55,5 +58,6 @@ public class Menu {
         this.menuViewPath = menuViewPath;
         this.useYn = useYn;
         this.deleteYn = deleteYn;
+        this.rule = rule;
     }
 }

@@ -30,6 +30,17 @@ public class MenuController {
                 .headers(HttpHeaderJsonType.getHeader())
                 .body(message.getMessage());
     }
+    @GetMapping("/tree")
+    public ResponseEntity searchTreeList(Menu menu){
+        HttpMessage message = new HttpMessage();
+
+        message.put(CLASS_TYPE + "Count", menuRepository.searchTreeList(menu));
+        message.put(CLASS_TYPE + "TreeList", menuRepository.searchList(menu));
+
+        return ResponseEntity.ok()
+                .headers(HttpHeaderJsonType.getHeader())
+                .body(message.getMessage());
+    }
 
     @GetMapping("/{idx}")
     public ResponseEntity search(@PathVariable Long idx){
