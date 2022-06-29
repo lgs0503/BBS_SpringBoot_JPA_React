@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/userChk")
-    public ResponseEntity userChk(@RequestBody User user){
+    public ResponseEntity userChk(User user){
         HttpMessage message = new HttpMessage();
 
         message.put(CLASS_TYPE + "Result", userRepository.searchListCount(user));
