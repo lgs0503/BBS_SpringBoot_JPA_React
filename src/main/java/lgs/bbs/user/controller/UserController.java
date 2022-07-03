@@ -62,6 +62,7 @@ public class UserController {
     public void save(@RequestBody User user){
 
         user = User.builder()
+                .idx(user.getIdx())
                 .id(user.getId())
                 .password(user.getPassword() != null ? UserSha256.encrypt(user.getPassword()) : "")
                 .name(user.getName())

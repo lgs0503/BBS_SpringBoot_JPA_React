@@ -39,7 +39,8 @@ public class User{
     private long imageFileNo;
 
     @Builder
-    public User(String id,
+    public User(Long idx,
+                  String id,
                   String password,
                   String name,
                   String birthday,
@@ -51,6 +52,7 @@ public class User{
                   int rule,
                   String deleteYn,
                   long imageFileNo) {
+        this.idx = idx;
         this.id = id;
         this.password = password;
         this.name = name;
