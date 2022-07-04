@@ -8,4 +8,6 @@ public interface UserRepositoryCustom {
 
     Long searchListCount(User user);
 
+    List<User> searchDetail(User user);
+
 }

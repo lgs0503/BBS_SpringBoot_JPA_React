@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -47,11 +48,13 @@ public class UserController {
                 .body(message.getMessage());
     }
 
-    @GetMapping("/{idx}")
-    public ResponseEntity search(@PathVariable Long idx){
+    @GetMapping("/{id}")
+    public ResponseEntity search(@PathVariable String id){
         HttpMessage message = new HttpMessage();
 
-        message.put(CLASS_TYPE, userRepository.findAllById(Collections.singleton(idx)));
+        User user = User.builder().id(id).build();
+
+        message.put(CLASS_TYPE, userRepository.searchDetail(user));
 
         return ResponseEntity.ok()
                 .headers(HttpHeaderJsonType.getHeader())
@@ -81,7 +84,9 @@ public class UserController {
     }
 
     @DeleteMapping
-    public void delete(@RequestBody User user){
-        userRepository.delete(user);
+    public void delete(@RequestBody String [] user){
+
+        return;
+        //userRepository.delete(user);
     }
 }

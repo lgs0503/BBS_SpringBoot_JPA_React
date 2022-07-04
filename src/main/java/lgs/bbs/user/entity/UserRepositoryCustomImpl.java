@@ -1,6 +1,7 @@
 package lgs.bbs.user.entity;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lgs.bbs.comm.UserSha256;
 import org.springframework.util.ObjectUtils;
@@ -24,7 +25,15 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
         builderCondition(builder, user, quser);
 
         return jpaQueryFactory
-                .select(quser)
+                .select(
+                        Projections.bean(
+                                User.class,
+                                quser.idx,
+                                quser.id,
+                                quser.name,
+                                quser.rule
+                        )
+                )
                 .from(quser)
                 .where(builder)
                 .fetch();
@@ -44,6 +53,21 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
                 .where(builder)
                 .fetch()
                 .get(0);//fetchCount() 대신 사용 - QueryDSL 패치되서 안씀
+    }
+
+    @Override
+    public List<User> searchDetail(User user) {
+
+        QUser quser = QUser.user; // 추가
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builderCondition(builder, user, quser);
+
+        return jpaQueryFactory
+                .select(quser)
+                .from(quser)
+                .where(builder)
+                .fetch();
     }
 
     private void builderCondition(BooleanBuilder builder, User user, QUser quser){
