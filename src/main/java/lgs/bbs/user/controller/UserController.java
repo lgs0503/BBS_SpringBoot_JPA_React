@@ -62,7 +62,8 @@ public class UserController {
     }
 
     @PostMapping
-    public void save(@RequestBody User user){
+    public ResponseEntity save(@RequestBody User user){
+        HttpMessage message = new HttpMessage();
 
         user = User.builder()
                 .idx(user.getIdx())
@@ -81,12 +82,22 @@ public class UserController {
                 .build();
 
         userRepository.save(user);
+
+        return ResponseEntity.ok()
+                .headers(HttpHeaderJsonType.getHeader())
+                .body(message.getMessage());
     }
 
     @DeleteMapping
-    public void delete(@RequestBody String [] user){
+    public ResponseEntity delete(@RequestBody List<User> user){
+        HttpMessage message = new HttpMessage();
 
-        return;
-        //userRepository.delete(user);
+        for (User deleteUser : user) {
+            userRepository.delete(deleteUser);
+        }
+
+        return ResponseEntity.ok()
+                .headers(HttpHeaderJsonType.getHeader())
+                .body(message.getMessage());
     }
 }

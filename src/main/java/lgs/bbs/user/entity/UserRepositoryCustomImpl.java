@@ -76,7 +76,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom{
             builder.and(quser.id.eq(user.getId()));
         }
         if(!ObjectUtils.isEmpty(user.getName())) {
-            builder.and(quser.name.eq(user.getName()));
+            builder.and(quser.name.contains(user.getName()));
         }
         /* 비밀번호 암호화 (해쉬-256) 하여 비교 */
         if(!ObjectUtils.isEmpty(user.getPassword())) {
